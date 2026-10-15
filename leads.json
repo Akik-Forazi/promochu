@@ -1,0 +1,7 @@
+[
+  {"email": "john.doe@example.com", "firstName": "John", "lastName": "Doe", "company": "Acme Corp"},
+  {"email": "jane.smith@example.com", "firstName": "Jane", "lastName": "Smith", "company": "TechStart Inc"},
+  {"email": "bob.wilson@example.com", "firstName": "Bob", "lastName": "Wilson", "company": "Global Industries"},
+  {"email": "alice.brown@example.com", "firstName": "Alice", "lastName": "Brown", "company": "Innovate LLC"},
+  {"email": "charlie.davis@example.com", "firstName": "Charlie", "lastName": "Davis", "company": "Future Systems"}
+]

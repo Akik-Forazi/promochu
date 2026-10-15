@@ -1,0 +1,14 @@
+Hi {{firstName}},
+
+We noticed you're at {{company}} and thought you'd be interested in our latest offering.
+
+Our solution helps teams like yours:
+- Reduce manual work by 40%
+- Improve response times
+- Scale without adding headcount
+
+Schedule a demo: https://example.com/demo
+
+---
+This email was sent to {{email}}.
+Unsubscribe: https://example.com/unsubscribe
