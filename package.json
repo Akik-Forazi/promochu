@@ -1,7 +1,7 @@
 {
   "name": "@fraziym/promochu",
-  "version": "0.2.0-beta.1",
-  "description": "Promochu \u2014 AI-powered cold email automation with sender rotation, analytics tracking, and FRAZIYM ecosystem integration (xorvoid error tracking + xorgis secret protection).",
+  "version": "0.3.0-beta.1",
+  "description": "Promochu \u2014 professional Gmail farm + cold email outreach platform. Account health tracking, warmup automation, multi-step sequences, AI personalization, analytics, and FRAZIYM security integration.",
   "type": "module",
   "license": "MIT",
   "author": "AKIK FARAJI <akikfaraji@gmail.com> (https://fraziym.com)",
@@ -20,21 +20,24 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "farm": "node src/index.js --farm",
     "campaign": "node src/index.js --campaign",
     "leads:import": "node src/index.js --import-leads",
     "stats": "node src/index.js --stats",
+    "warmup": "node src/index.js --warmup",
     "test": "node --test --experimental-strip-types \"test/**/*.test.ts\""
   },
   "dependencies": {
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.9.13",
+    "better-sqlite3": "^11.0.0"
   },
   "optionalDependencies": {
     "@fraziym/xorvoid": ">=0.1.0-beta.1",
     "@fraziym/xorgis": ">=0.1.0-beta.1",
     "@fraziym/axoniz": ">=0.1.8-beta.1"
   },
-  "optionalDependenciesMeta": {},
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
     "@types/node": "^26.6.4"
   }
 }
