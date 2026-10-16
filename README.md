@@ -1,74 +1,46 @@
 # @fraziym/promochu
 
-**AI-powered cold email automation with sender rotation, analytics tracking, and FRAZIYM ecosystem integration.**
+Professional Gmail farm + cold email outreach platform. Account health tracking, warmup automation, multi-step sequences, AI personalization, analytics.
 
-## What is Promochu?
+## Gmail Farm
 
-Promochu automates personalized cold email outreach at scale:
-- **Sender rotation** — cycle through multiple Gmail accounts to avoid rate limits
-- **Template variables** — personalize with {{firstName}}, {{lastName}}, {{company}}, etc.
-- **Lead tracking** — JSON database tracks who was emailed, who opened, who clicked
-- **Rate limiting** — configurable emails/hour/account with automatic delays
-- **Analytics** — open tracking (pixel), click tracking, bounce detection
-- **AI content** — optionally use @fraziym/axoniz to generate personalized email bodies
-- **Security** — @fraziym/xorgis scans for credential leaks before sending
-- **Error tracking** — @fraziym/xorvoid captures failures and auto-retries
+Managed pool of Gmail accounts with:
+- Health states: NEW → WARMING_UP → HEALTHY → (DEGRADED → COOLING_DOWN → RECOVERING) → BANNED
+- Warmup schedule: 5/day → 10/day → 20/day → 30/day over 14 days
+- Auto-cooldown: bounce >5% → 24h, complaint >0.1% → 48h
+- Smart rotation: health-based + niche matching (not round-robin)
+- Hard rate cap: prevents account burn
 
-## Quick start
+## Multi-step Sequences
 
-```bash
-npm install @fraziym/promochu
-```
+Day 1: Intro (AI) → Day 3: Follow-up → Day 7: Social proof → Day 12: Breakup. Auto-stop on reply/unsubscribe/bounce.
 
-```env
-# .env
-SENDER_ACCOUNTS="sender1@gmail.com:apppassword1,sender2@gmail.com:apppassword2"
-LEADS_FILE="./leads.json"
-RATE_PER_HOUR_PER_ACCOUNT=30
-FROM_NAME="Your Name"
-SUBJECT_TEMPLATE="Special offer for {{firstName}}"
-```
+## Analytics
 
-```bash
-promochu start
-```
+Open tracking, click tracking, reply detection (IMAP), bounce parsing, per-account + per-campaign breakdown.
+
+## Security (@fraziym/xorgis)
+
+- Credential vault — app passwords encrypted (post-quantum crypto)
+- Content scanner — scans for leaked secrets BEFORE sending
+- Audit log — tamper-proof Merkle chain
+- CAN-SPAM + GDPR compliance
 
 ## CLI
 
-```bash
-promochu start           # start sending campaign
-promochu --import-leads  # import leads from JSON
-promochu --stats         # show campaign statistics
-promochu --campaign      # create a new campaign
-```
+promochu start / farm list / farm add / farm warmup / --import-leads / --stats
 
-## FRAZIYM ecosystem integration
+## Database
 
-| Package | Role in Promochu | Required? |
-|---|---|---|
-| `@fraziym/xorvoid` | Error tracking — captures send failures, auto-retries | Optional |
-| `@fraziym/xorgis` | Security — scans email content for credential leaks before sending | Optional |
-| `@fraziym/axoniz` | AI — generates personalized email bodies from lead data | Optional |
+SQLite (better-sqlite3) — local, ACID, queryable.
 
-If these packages are installed, Promochu auto-detects them and activates their features.
+## Ecosystem
 
-## Architecture
+- @fraziym/xorvoid (error tracking + auto-retry)
+- @fraziym/xorgis (secret scanning + crypto + compliance)
+- @fraziym/axoniz (AI email personalization)
 
-```
-leads.json → Promochu → sender rotation → Gmail (nodemailer)
-                ↓              ↑
-            analytics    ┌─────┴──────┐
-         (open/click)   │ xorgis scan │ (blocks credential leaks)
-            ↓           └────────────┘
-         database.json       ↓
-       (tracking)      ┌─────┴──────┐
-                       │ xorvoid   │ (captures send failures)
-                       └────────────┘
-                            ↓
-                       ┌─────┴──────┐
-                       │ axoniz AI  │ (generates personalized body)
-                       └────────────┘
-```
+All optional — auto-detected if installed.
 
 ## License
 
